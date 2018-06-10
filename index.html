@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>websocket</title>
 </head>
 <body>
-
+<p id='server-time'></p>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+  const el = document.getElementById('server-time');
+  socket.on('time', function (timeString) {
+    el.innerHTML = 'Server time: ' + timeString;
+  });
+</script>
 </body>
 </html>
