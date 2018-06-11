@@ -11,8 +11,8 @@ app.get('/', function (req, res) {
 io.on('connection', function (socket) {
   const ROOM = 'first room';
   socket.join(ROOM, () => {
-    socket.use((packet, next) => {
-      socket.to(ROOM).emit(packet);
+    socket.use(([event, data], next) => {
+      socket.to(ROOM).emit(event, data);
       next();
     });
   });
