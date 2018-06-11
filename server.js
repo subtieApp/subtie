@@ -9,10 +9,11 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-  socket.emit('news', {hello: 'world'});
-  socket.on('my other event', function (data) {
-    console.log(data);
+  const ROOM = 'first room';
+  socket.join(ROOM, () => {
+    socket.use((packet, next) => {
+      socket.to(ROOM).emit(packet);
+      next();
+    });
   });
 });
-
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
